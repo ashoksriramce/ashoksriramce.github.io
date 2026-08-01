@@ -10,15 +10,16 @@
 <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700;800&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
   :root{
-    --bp-navy: #0A2E4D;
-    --bp-navy-deep: #071F36;
-    --bp-line: #1C5C8C;
-    --bp-line-faint: rgba(143,168,196,0.18);
-    --bp-paper: #F5F3EC;
-    --bp-paper-dim: #C9D3DC;
-    --bp-muted: #8FA8C4;
-    --bp-amber: #F2A93B;
-    --bp-amber-dim: #C98A2A;
+    --paper: #F7F5EE;
+    --paper-alt: #EFEAdd;
+    --paper-card: #FCFBF7;
+    --ink: #16324F;
+    --ink-soft: #3E5A73;
+    --muted: #6E7C87;
+    --line: #C7CDC9;
+    --line-strong: #1B3A5C;
+    --accent: #B5651D;
+    --accent-soft: rgba(181,101,29,0.10);
     --mono: 'JetBrains Mono', ui-monospace, monospace;
     --sans: 'IBM Plex Sans', system-ui, sans-serif;
   }
@@ -27,13 +28,13 @@
   html{scroll-behavior:smooth;}
   body{
     margin:0;
-    background:var(--bp-navy);
-    color:var(--bp-paper);
+    background:var(--paper);
+    color:var(--ink);
     font-family:var(--sans);
     line-height:1.6;
     background-image:
-      linear-gradient(var(--bp-line-faint) 1px, transparent 1px),
-      linear-gradient(90deg, var(--bp-line-faint) 1px, transparent 1px);
+      linear-gradient(rgba(27,58,92,0.055) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(27,58,92,0.055) 1px, transparent 1px);
     background-size: 28px 28px;
   }
   @media (prefers-reduced-motion: reduce){
@@ -45,8 +46,8 @@
     position:fixed;
     left:0; top:0; bottom:0;
     width:34px;
-    background:var(--bp-navy-deep);
-    border-right:1px solid var(--bp-line);
+    background:var(--paper-alt);
+    border-right:1px solid var(--line-strong);
     z-index:50;
     display:none;
   }
@@ -55,7 +56,7 @@
     height:100%;
     font-family:var(--mono);
     font-size:9px;
-    color:var(--bp-muted);
+    color:var(--muted);
   }
   .ruler-tick{
     position:absolute;
@@ -64,7 +65,7 @@
     gap:4px; padding-right:4px;
   }
   .ruler-tick span{writing-mode:vertical-rl; letter-spacing:1px;}
-  .ruler-tick::after{content:""; width:8px; height:1px; background:var(--bp-line);}
+  .ruler-tick::after{content:""; width:8px; height:1px; background:var(--line-strong);}
   @media(min-width:900px){ .ruler{display:block;} body{margin-left:34px;} }
 
   /* ---------- Top bar / hero ---------- */
@@ -76,7 +77,7 @@
   }
   .compass{
     width:46px;height:46px;
-    border:1.5px solid var(--bp-amber);
+    border:1.5px solid var(--accent);
     border-radius:50%;
     display:flex;align-items:center;justify-content:center;
     position:relative;
@@ -85,7 +86,7 @@
   .compass::before{
     content:"";
     width:1px; height:60%;
-    background:var(--bp-amber);
+    background:var(--accent);
     position:absolute;
   }
   .compass::after{
@@ -94,21 +95,25 @@
     top:-18px;
     font-family:var(--mono);
     font-size:10px;
-    color:var(--bp-amber);
+    color:var(--accent);
     letter-spacing:1px;
   }
   .hero-top{
     display:flex; align-items:flex-start; justify-content:space-between;
     gap:24px; flex-wrap:wrap;
-    border-bottom:1px solid var(--bp-line);
+    border-bottom:1px solid var(--line-strong);
     padding-bottom:24px;
   }
   .coords{
     font-family:var(--mono);
     font-size:12px;
-    color:var(--bp-muted);
+    color:var(--muted);
     text-align:right;
     line-height:1.8;
+  }
+  .hero-main{
+    display:flex; align-items:flex-end; justify-content:space-between;
+    gap:28px; flex-wrap:wrap;
   }
   .hero-name{
     font-family:var(--mono);
@@ -116,45 +121,80 @@
     font-size:clamp(2.2rem, 6vw, 4rem);
     letter-spacing:-0.02em;
     margin:28px 0 6px;
-    color:var(--bp-paper);
+    color:var(--ink);
   }
   .hero-title{
     font-family:var(--mono);
-    color:var(--bp-amber);
+    color:var(--accent);
     font-size:clamp(0.85rem, 2vw, 1.05rem);
     letter-spacing:0.06em;
     text-transform:uppercase;
     margin:0 0 28px;
+  }
+  .photo-frame{
+    flex-shrink:0;
+    width:132px; height:132px;
+    border:2px solid var(--line-strong);
+    padding:6px;
+    background:var(--paper-card);
+    position:relative;
+    margin-bottom:28px;
+  }
+  .photo-frame img{
+    width:100%; height:100%;
+    object-fit:cover;
+    display:block;
+    filter:grayscale(15%) contrast(1.02);
+  }
+  .photo-frame::before{
+    content:"FIG. 00";
+    position:absolute;
+    bottom:-20px; left:0;
+    font-family:var(--mono);
+    font-size:9px;
+    color:var(--muted);
+    letter-spacing:0.06em;
+  }
+  .photo-frame::after{
+    content:"";
+    position:absolute;
+    top:-7px; left:50%;
+    transform:translateX(-50%) rotate(-3deg);
+    width:26px; height:10px;
+    background:var(--accent-soft);
+    border:1px solid var(--accent);
+    opacity:0.7;
   }
   .scale-bar{
     display:flex; align-items:center; gap:2px;
     margin:8px 0 0;
     font-family:var(--mono);
     font-size:10px;
-    color:var(--bp-muted);
+    color:var(--muted);
   }
   .scale-bar .seg{
     width:22px; height:6px;
-    border:1px solid var(--bp-muted);
+    border:1px solid var(--muted);
     border-right:none;
   }
-  .scale-bar .seg:nth-child(odd){background:var(--bp-muted);}
-  .scale-bar .seg:last-of-type{border-right:1px solid var(--bp-muted);}
+  .scale-bar .seg:nth-child(odd){background:var(--muted);}
+  .scale-bar .seg:last-of-type{border-right:1px solid var(--muted);}
 
   /* ---------- Sheet sections ---------- */
   main{max-width:1040px; margin:0 auto; padding:0 28px 80px;}
   .sheet{
     margin-top:56px;
-    border:1px solid var(--bp-line);
-    background:rgba(10,46,77,0.4);
+    border:1px solid var(--line-strong);
+    background:var(--paper-card);
     position:relative;
+    box-shadow: 0 1px 0 rgba(27,58,92,0.06);
   }
   .sheet-title{
     display:flex; align-items:baseline; justify-content:space-between;
     gap:16px; flex-wrap:wrap;
     padding:14px 20px;
-    border-bottom:1px solid var(--bp-line);
-    background:var(--bp-navy-deep);
+    border-bottom:1px solid var(--line-strong);
+    background:var(--paper-alt);
   }
   .sheet-title h2{
     font-family:var(--mono);
@@ -162,23 +202,24 @@
     letter-spacing:0.08em;
     text-transform:uppercase;
     margin:0;
-    color:var(--bp-paper);
+    color:var(--ink);
   }
   .sheet-title .tag{
     font-family:var(--mono);
     font-size:0.7rem;
-    color:var(--bp-muted);
+    color:var(--muted);
     letter-spacing:0.05em;
   }
   .sheet-body{padding:28px 20px 32px;}
 
   /* Profile */
-  .profile-text{max-width:70ch; color:var(--bp-paper-dim); font-size:1.02rem;}
+  .profile-text{max-width:70ch; color:var(--ink-soft); font-size:1.02rem;}
   .profile-tags{display:flex; flex-wrap:wrap; gap:8px; margin-top:22px;}
   .ptag{
     font-family:var(--mono); font-size:0.72rem;
-    border:1px solid var(--bp-line); color:var(--bp-amber);
+    border:1px solid var(--line-strong); color:var(--accent);
     padding:4px 10px; letter-spacing:0.03em;
+    background:var(--accent-soft);
   }
 
   /* Experience timeline */
@@ -187,96 +228,107 @@
     grid-template-columns:96px 1fr;
     gap:20px;
     padding:22px 0;
-    border-top:1px dashed var(--bp-line-faint);
+    border-top:1px dashed var(--line);
   }
   .station:first-child{border-top:none;}
   .bm{
-    font-family:var(--mono); color:var(--bp-amber);
+    font-family:var(--mono); color:var(--accent);
     font-size:0.78rem; letter-spacing:0.03em;
   }
-  .bm .period{display:block; color:var(--bp-muted); font-size:0.7rem; margin-top:6px;}
-  .role h3{margin:0 0 2px; font-size:1.05rem; color:var(--bp-paper);}
+  .bm .period{display:block; color:var(--muted); font-size:0.7rem; margin-top:6px;}
+  .role h3{margin:0 0 2px; font-size:1.05rem; color:var(--ink);}
   .role .org{
-    font-family:var(--mono); font-size:0.78rem; color:var(--bp-muted);
+    font-family:var(--mono); font-size:0.78rem; color:var(--muted);
     margin-bottom:10px; display:block;
   }
-  .role ul{margin:0; padding-left:18px; color:var(--bp-paper-dim); font-size:0.93rem;}
+  .role ul{margin:0; padding-left:18px; color:var(--ink-soft); font-size:0.93rem;}
   .role li{margin-bottom:6px;}
 
   /* Skills legend */
   .legend{display:grid; grid-template-columns:repeat(auto-fit,minmax(230px,1fr)); gap:24px;}
   .legend-group h4{
-    font-family:var(--mono); color:var(--bp-amber); font-size:0.78rem;
+    font-family:var(--mono); color:var(--accent); font-size:0.78rem;
     letter-spacing:0.05em; text-transform:uppercase; margin:0 0 12px;
     display:flex; align-items:center; gap:8px;
   }
-  .legend-group h4::before{content:""; width:14px; height:1px; background:var(--bp-amber);}
+  .legend-group h4::before{content:""; width:14px; height:1px; background:var(--accent);}
   .legend-group ul{list-style:none; margin:0; padding:0;}
   .legend-group li{
-    font-size:0.9rem; color:var(--bp-paper-dim);
-    padding:5px 0; border-bottom:1px dotted var(--bp-line-faint);
+    font-size:0.9rem; color:var(--ink-soft);
+    padding:5px 0; border-bottom:1px dotted var(--line);
   }
 
   /* Education / certs */
   .edu-block{margin-bottom:26px;}
   .edu-block:last-child{margin-bottom:0;}
-  .edu-block h3{margin:0 0 4px; font-size:1.02rem; color:var(--bp-paper);}
-  .edu-block .meta{font-family:var(--mono); font-size:0.75rem; color:var(--bp-muted); display:block; margin-bottom:6px;}
-  .edu-block p{margin:4px 0 0; color:var(--bp-paper-dim); font-size:0.9rem;}
+  .edu-block h3{margin:0 0 4px; font-size:1.02rem; color:var(--ink);}
+  .edu-block .meta{font-family:var(--mono); font-size:0.75rem; color:var(--muted); display:block; margin-bottom:6px;}
+  .edu-block p{margin:4px 0 0; color:var(--ink-soft); font-size:0.9rem;}
   .cert-list{list-style:none; margin:0; padding:0;}
   .cert-list li{
-    font-size:0.9rem; color:var(--bp-paper-dim);
-    padding:8px 0; border-top:1px dashed var(--bp-line-faint);
+    font-size:0.9rem; color:var(--ink-soft);
+    padding:8px 0; border-top:1px dashed var(--line);
   }
   .cert-list li:first-child{border-top:none;}
-  .cert-list b{color:var(--bp-paper); font-weight:600;}
+  .cert-list b{color:var(--ink); font-weight:600;}
 
   /* Publication callout */
   .pub{
-    border-left:2px solid var(--bp-amber);
+    border-left:2px solid var(--accent);
     padding:14px 18px;
-    background:rgba(242,169,59,0.06);
+    background:var(--accent-soft);
     margin-bottom:24px;
     font-size:0.92rem;
-    color:var(--bp-paper-dim);
+    color:var(--ink-soft);
   }
-  .pub b{color:var(--bp-paper);}
+  .pub b{color:var(--ink);}
   .cpd-grid{display:grid; gap:10px;}
   .cpd-grid .row{
     display:flex; justify-content:space-between; gap:16px;
-    font-size:0.88rem; color:var(--bp-paper-dim);
-    padding:8px 0; border-top:1px dotted var(--bp-line-faint);
+    font-size:0.88rem; color:var(--ink-soft);
+    padding:8px 0; border-top:1px dotted var(--line);
   }
   .cpd-grid .row:first-child{border-top:none;}
-  .cpd-grid .row span:last-child{font-family:var(--mono); font-size:0.75rem; color:var(--bp-muted); white-space:nowrap;}
+  .cpd-grid .row span:last-child{font-family:var(--mono); font-size:0.75rem; color:var(--muted); white-space:nowrap;}
 
   /* Languages */
   .lang-row{display:flex; align-items:center; gap:14px; margin-bottom:10px; font-size:0.9rem;}
-  .lang-row .name{width:90px; color:var(--bp-paper);}
-  .lang-bar{flex:1; height:6px; background:var(--bp-line-faint); position:relative;}
-  .lang-bar > span{position:absolute; left:0; top:0; height:100%; background:var(--bp-amber);}
-  .lang-row .level{font-family:var(--mono); font-size:0.75rem; color:var(--bp-muted); width:30px;}
+  .lang-row .name{width:90px; color:var(--ink);}
+  .lang-bar{flex:1; height:6px; background:var(--line); position:relative;}
+  .lang-bar > span{position:absolute; left:0; top:0; height:100%; background:var(--accent);}
+  .lang-row .level{font-family:var(--mono); font-size:0.75rem; color:var(--muted); width:30px;}
+
+  /* Project gallery */
+  .gallery{display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:22px;}
+  .gcard{border:1px solid var(--line-strong); background:var(--paper);}
+  .gcard figure{margin:0;}
+  .gcard img{width:100%; display:block; height:190px; object-fit:cover; border-bottom:1px solid var(--line-strong);}
+  .gcard figcaption{padding:12px 14px;}
+  .gcard .gnum{font-family:var(--mono); font-size:0.68rem; color:var(--accent); letter-spacing:0.05em;}
+  .gcard .gtitle{display:block; font-size:0.88rem; color:var(--ink); margin-top:4px; font-weight:600;}
+  .gcard .gdesc{display:block; font-size:0.8rem; color:var(--muted); margin-top:4px; line-height:1.5;}
 
   /* Footer / title block */
   footer{
     max-width:1040px; margin:0 auto; padding:0 28px 64px;
   }
   .titleblock{
-    border:1px solid var(--bp-line);
+    border:1px solid var(--line-strong);
     display:grid;
     grid-template-columns:1fr 1fr;
+    background:var(--paper-card);
   }
-  .tb-cell{padding:20px; border-bottom:1px solid var(--bp-line);}
-  .tb-cell:nth-child(odd){border-right:1px solid var(--bp-line);}
+  .tb-cell{padding:20px; border-bottom:1px solid var(--line-strong);}
+  .tb-cell:nth-child(odd){border-right:1px solid var(--line-strong);}
   .tb-cell .label{
-    font-family:var(--mono); font-size:0.68rem; color:var(--bp-muted);
+    font-family:var(--mono); font-size:0.68rem; color:var(--muted);
     text-transform:uppercase; letter-spacing:0.06em; margin-bottom:6px; display:block;
   }
-  .tb-cell a{color:var(--bp-amber); text-decoration:none; font-weight:600;}
+  .tb-cell a{color:var(--accent); text-decoration:none; font-weight:600;}
   .tb-cell a:hover{text-decoration:underline;}
-  .tb-cell a:focus-visible, a:focus-visible{outline:2px solid var(--bp-amber); outline-offset:3px;}
+  .tb-cell a:focus-visible, a:focus-visible{outline:2px solid var(--accent); outline-offset:3px;}
   footer .note{
-    font-family:var(--mono); font-size:0.7rem; color:var(--bp-muted);
+    font-family:var(--mono); font-size:0.7rem; color:var(--muted);
     margin-top:18px; text-align:center;
   }
 
@@ -302,12 +354,19 @@
       FRANKFURT AM MAIN, DE
     </div>
   </div>
-  <h1 class="hero-name">Ashok&nbsp;Kumar<br>Sriramula</h1>
-  <p class="hero-title">Geoinformatics Specialist — GIS — Surveying &amp; Drone Mapping (RPAS)</p>
-  <div class="scale-bar" aria-hidden="true">
-    <span>0</span>
-    <div class="seg"></div><div class="seg"></div><div class="seg"></div><div class="seg"></div>
-    <span style="margin-left:6px;">SCALE 1:1</span>
+  <div class="hero-main">
+    <div>
+      <h1 class="hero-name">Ashok&nbsp;Kumar<br>Sriramula</h1>
+      <p class="hero-title">Geoinformatics Specialist — GIS — Surveying &amp; Drone Mapping (RPAS)</p>
+      <div class="scale-bar" aria-hidden="true">
+        <span>0</span>
+        <div class="seg"></div><div class="seg"></div><div class="seg"></div><div class="seg"></div>
+        <span style="margin-left:6px;">SCALE 1:1</span>
+      </div>
+    </div>
+    <div class="photo-frame">
+      <img src="assets/photo.jpg" alt="Portrait of Ashok Kumar Sriramula">
+    </div>
   </div>
 </header>
 
@@ -498,7 +557,8 @@
       <div class="pub">
         <b>"Geospatial Analysis for Land Suitability Evaluation in the Peri-Urban Region of HMDA"</b><br>
         Disaster Advances, Vol. 19(4), April 2026 · DOI: 10.25303/194da033043<br>
-        GIS-AHP weighted overlay analysis using multi-temporal Sentinel-2A imagery — 85–90% predictive accuracy. Lead author.
+        GIS-AHP weighted overlay analysis using multi-temporal Sentinel-2A imagery — 85–90% predictive accuracy. Lead author.<br>
+        <a href="https://doi.org/10.25303/194da033043" target="_blank" rel="noopener" style="display:inline-block; margin-top:12px; font-family:var(--mono); font-size:0.75rem; color:var(--accent); border:1px solid var(--accent); padding:6px 12px; text-decoration:none; letter-spacing:0.04em;">↗ READ PUBLISHED PAPER</a>
       </div>
       <div class="cpd-grid">
         <div class="row"><span>Spatial Data Science with Python-based GIS (QGIS, ArcGIS, Google Earth Engine) — 20-day masterclass, Ecospatial Lab</span><span>Jun 2026</span></div>
@@ -507,6 +567,54 @@
         <div class="row"><span>Winter training: Remote Sensing and GIS — India Space Academy</span><span>Jan 2026</span></div>
         <div class="row"><span>AI, GIS and remote sensing for groundwater recharge mapping — CSE / AAETI</span><span>Oct–Nov 2025</span></div>
         <div class="row"><span>ECBC &amp; Eco-Niwas Samhita (ENS) — Ela Green Buildings / TSREDCO, three programmes</span><span>2022–2023</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sheet reveal" id="project-output">
+    <div class="sheet-title"><h2>Sheet 06 — Selected Project Output</h2><span class="tag">HMDA Land Suitability Study</span></div>
+    <div class="sheet-body">
+      <div class="gallery">
+        <div class="gcard">
+          <figure>
+            <img src="assets/fig-location-map.jpg" alt="Location map of the HMDA study area">
+            <figcaption>
+              <span class="gnum">FIG. 01</span>
+              <span class="gtitle">Study area location</span>
+              <span class="gdesc">HMDA region, Telangana — 33 mandals covering urban and peri-urban zones.</span>
+            </figcaption>
+          </figure>
+        </div>
+        <div class="gcard">
+          <figure>
+            <img src="assets/fig-workflow.png" alt="GIS-AHP methodology workflow diagram">
+            <figcaption>
+              <span class="gnum">FIG. 02</span>
+              <span class="gtitle">GIS–AHP workflow</span>
+              <span class="gdesc">Data acquisition through weighted overlay — the full analysis pipeline.</span>
+            </figcaption>
+          </figure>
+        </div>
+        <div class="gcard">
+          <figure>
+            <img src="assets/fig-lulc-2025.jpg" alt="Land use and land cover map for 2025">
+            <figcaption>
+              <span class="gnum">FIG. 03</span>
+              <span class="gtitle">LULC classification, 2025</span>
+              <span class="gdesc">Multi-temporal Sentinel-2A classification showing settlement, vegetation and fallow land.</span>
+            </figcaption>
+          </figure>
+        </div>
+        <div class="gcard">
+          <figure>
+            <img src="assets/fig-suitability-map.jpg" alt="Final land suitability index map">
+            <figcaption>
+              <span class="gnum">FIG. 04</span>
+              <span class="gtitle">Land suitability index</span>
+              <span class="gdesc">Final weighted-overlay output — validated at 85–90% predictive accuracy.</span>
+            </figcaption>
+          </figure>
+        </div>
       </div>
     </div>
   </section>
